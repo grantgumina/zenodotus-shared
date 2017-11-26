@@ -1,0 +1,19 @@
+{
+  "name": "zenodotus-storage-manager",
+  "version": "1.0.0",
+  "description": "Shared code for the zenodotus project",
+  "main": "StorageManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grantgumina/zenodotus-shared.git"
+  },
+  "author": "Grant J. Gumina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grantgumina/zenodotus-shared/issues"
+  },
+  "homepage": "https://github.com/grantgumina/zenodotus-shared#readme"
+}
