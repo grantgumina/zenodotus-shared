@@ -1,6 +1,6 @@
 {
   "name": "zenodotus-storage-manager",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Shared code for the zenodotus project",
   "main": "StorageManager.js",
   "scripts": {
