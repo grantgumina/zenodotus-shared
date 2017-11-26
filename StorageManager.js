@@ -9,8 +9,9 @@ class StorageManager {
     }
 
     // Create methods
-    createMessage(messageBody) {
-        return this.db.one('INSERT INTO messages(body) VALUES ($1) RETURNING id', [messageBody]).then(data => {
+    createMessage(messageBody, sender, channel) {
+        return this.db.one('INSERT INTO messages(body, sender, channel) VALUES ($1 $2 $3) RETURNING id', [messageBody, sender, channel])
+        .then(data => {
             return data.id;
         }).catch(error => {
             return console.error('Error with query:\n', error.message, error.stack);
