@@ -11,10 +11,10 @@ class StorageManager {
     // Create methods
     createMessage(messageBody, sender, channel) {
 
-        console.log('body: ', body);
+        console.log('body: ', messageBody);
         console.log('sender: ', sender);
         console.log('channel: ', channel);
-        
+
         return this.db.one('INSERT INTO messages(body, sender, channel) VALUES ($1, $2, $3) RETURNING id', [messageBody, sender, channel])
         .then(data => {
             return data.id;
