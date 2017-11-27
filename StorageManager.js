@@ -53,31 +53,44 @@ class StorageManager {
             // Create rows to insert
             var rowsToInsert = [];
 
-            // For any new link, create a tagged-link entry with that new link and all tags
-            newLinkIds.forEach(linkId => {
-                tagIds.forEach(tagId => {
-                    var row = {};
-                    row.linkid = linkId,
-                    row.tagid = tagId
+            // All tags in this message are entirely new
+            if (tagIds.length == newTagIds.length) {
+                newTagIds.forEach(tagId => {
+                    linkIds.forEach(linkId => {
+                        var row = {};
+                        row.linkid = linkId,
+                        row.tagid = tagId
 
-                    rowsToInsert.push(row);
+                        rowsToInsert.push(row);
+                    });
                 });
-            });
+            } else {
+                // For any new link, create a tagged-link entry with that new link and all tags
+                newLinkIds.forEach(linkId => {
+                    tagIds.forEach(tagId => {
+                        var row = {};
+                        row.linkid = linkId,
+                        row.tagid = tagId
 
-            // For any new tag, create a tagged-link entry with that new tag and all links
-            newTagIds.forEach(tagId => {
-                linkIds.forEach(linkId => {
-                    var row = {};
-                    row.linkid = linkId,
-                    row.tagid = tagId
-
-                    rowsToInsert.push(row);
+                        rowsToInsert.push(row);
+                    });
                 });
-            });            
 
-            // If there's nothing to insert get out of here
-            if (rowsToInsert.length == 0) {
-                return;
+                // For any new tag, create a tagged-link entry with that new tag and all links
+                newTagIds.forEach(tagId => {
+                    linkIds.forEach(linkId => {
+                        var row = {};
+                        row.linkid = linkId,
+                        row.tagid = tagId
+
+                        rowsToInsert.push(row);
+                    });
+                });            
+
+                // If there's nothing to insert get out of here
+                if (rowsToInsert.length == 0) {
+                    return;
+                }
             }
 
             return this.bulkInsert(['linkid', 'tagid'], 'tagged-links', rowsToInsert);
