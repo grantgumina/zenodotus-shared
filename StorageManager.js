@@ -31,8 +31,8 @@ class StorageManager {
         
         tagIds.forEach(tagId => {
             var row = {};
-            row.tagid = tagId;
-            row.messageid = messageId;
+            row.tag_id = tagId;
+            row.message_id = messageId;
             rowsToInsert.push(row);
         })
 
@@ -58,8 +58,8 @@ class StorageManager {
                 newTagIds.forEach(tagId => {
                     linkIds.forEach(linkId => {
                         var row = {};
-                        row.linkid = linkId,
-                        row.tagid = tagId
+                        row.link_id = linkId,
+                        row.tag_id = tagId
 
                         rowsToInsert.push(row);
                     });
@@ -69,8 +69,8 @@ class StorageManager {
                 newLinkIds.forEach(linkId => {
                     tagIds.forEach(tagId => {
                         var row = {};
-                        row.linkid = linkId,
-                        row.tagid = tagId
+                        row.link_id = linkId,
+                        row.tag_id = tagId
 
                         rowsToInsert.push(row);
                     });
@@ -80,8 +80,8 @@ class StorageManager {
                 newTagIds.forEach(tagId => {
                     linkIds.forEach(linkId => {
                         var row = {};
-                        row.linkid = linkId,
-                        row.tagid = tagId
+                        row.link_id = linkId,
+                        row.tag_id = tagId
 
                         rowsToInsert.push(row);
                     });
