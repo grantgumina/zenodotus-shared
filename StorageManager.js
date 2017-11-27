@@ -36,11 +36,11 @@ class StorageManager {
             rowsToInsert.push(row);
         })
 
-        return this.bulkInsert(['messageid', 'tagid'], 'tagged-messages', rowsToInsert);        
+        return this.bulkInsert(['message_id', 'tag_id'], 'tagged_messages', rowsToInsert);        
     }
 
     createTaggedLinks(linkIds, tagIds) {
-        let queryString = 'SELECT * FROM "tagged-links" WHERE "linkid" IN ($1:csv) AND tagid IN ($2:csv)';
+        let queryString = 'SELECT * FROM "tagged_links" WHERE "link_id" IN ($1:csv) AND tag_id IN ($2:csv)';
         return this.db.any(queryString, [linkIds, tagIds]).then(data => {
             // Find linkIds which need to be inserted
             let preExistingLinkIds = data.map(d => d.linkid);
@@ -93,7 +93,7 @@ class StorageManager {
                 }
             }
 
-            return this.bulkInsert(['linkid', 'tagid'], 'tagged-links', rowsToInsert);
+            return this.bulkInsert(['link_id', 'tag_id'], 'tagged_links', rowsToInsert);
         });
     }
 
@@ -111,11 +111,11 @@ class StorageManager {
             return data[0].id;
         }).then(id => {
             // Delete all tagged-links
-            return this.db.result('DELETE FROM "tagged-links" WHERE "tagid" = $1', id).then(result => {
+            return this.db.result('DELETE FROM "tagged_links" WHERE "tag_id" = $1', id).then(result => {
                 returnObject.taggedLinksRowsDeleted = result.rowCount;
                 
                 // Delete all tagged-messages 
-                return this.db.result('DELETE FROM "tagged-messages" WHERE "tagid" = $1', id);
+                return this.db.result('DELETE FROM "tagged_messages" WHERE "tag_id" = $1', id);
             }).then(result => {
                 returnObject.taggedMessagesRowsDeleted = result.rowCount;
                 
