@@ -43,11 +43,11 @@ class StorageManager {
         let queryString = 'SELECT * FROM "tagged_links" WHERE "link_id" IN ($1:csv) AND tag_id IN ($2:csv)';
         return this.db.any(queryString, [linkIds, tagIds]).then(data => {
             // Find linkIds which need to be inserted
-            let preExistingLinkIds = data.map(d => d.linkid);
+            let preExistingLinkIds = data.map(d => d.link_id);
             let newLinkIds = linkIds.filter(id => !preExistingLinkIds.includes(id));
 
             // Find tagIds which need to be inserted
-            let preExistingTagIds = data.map(d => d.tagid);
+            let preExistingTagIds = data.map(d => d.tag_id);
             let newTagIds = tagIds.filter(id => !preExistingTagIds.includes(id));
 
             // Create rows to insert
