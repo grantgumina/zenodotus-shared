@@ -9,8 +9,8 @@ class StorageManager {
     }
 
     // Create methods
-    createMessage(messageBody, sender, channel) {
-        return this.db.one('INSERT INTO messages(body, sender, channel) VALUES ($1, $2, $3) RETURNING id', [messageBody, sender, channel])
+    createMessage(messageBody, sender, channel, deeplink) {
+        return this.db.one('INSERT INTO messages(body, sender, channel, deeplink) VALUES ($1, $2, $3, $4) RETURNING id', [messageBody, sender, channel, deeplink])
         .then(data => {
             return data.id;
         }).catch(error => {
