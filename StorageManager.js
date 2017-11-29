@@ -18,11 +18,22 @@ class StorageManager {
         });
     }
 
-    createTags(tagNames) {       
+    createTags(tagNames) {      
+        if (tagNames.length == 0) {
+            return {
+                old: [],
+                new: []
+            }
+        }
+
         return this.insertNewObjectsOnly(tagNames, 'tags', 'name');
     }
 
     createLinks(urls) {
+        if (urls.length == 0) {
+            return [];
+        }
+
         return this.insertNewObjectsOnly(urls, 'links', 'url');
     }
 
