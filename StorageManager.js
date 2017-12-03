@@ -108,6 +108,23 @@ class StorageManager {
         });
     }
 
+    // Get methods
+    getTags() {
+        return this.db.any('SELECT * FROM tags').then(data => {
+            return data;
+        }).catch(error => {
+            return error;
+        });
+    }
+
+    getMessagesForTagId(tagId) {
+        return this.db.any('SELECT * FROM messages WHERE id IN (SELECT message_id FROM tagged_messages WHERE tag_id = $1) ORDER BY created_at ASC', [tagId]).then(data => {
+            return data;
+        }).catch(error => {
+            return error;
+        });
+    }
+
     // Delete methods
     deleteTag(tagName) {
 
