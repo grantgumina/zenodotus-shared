@@ -31,7 +31,10 @@ class StorageManager {
 
     createLinks(urls) {
         if (urls.length == 0) {
-            return [];
+            return {
+                old: [],
+                new: []
+            }
         }
 
         return this.insertNewObjectsOnly(urls, 'links', 'url');
