@@ -129,7 +129,7 @@ class StorageManager {
     }
 
     // Delete methods
-    deleteTag(tagName) {
+    deleteTagForName(tagName) {
 
         var returnObject = {
             taggedLinksRowsDeleted: 0,
@@ -155,6 +155,32 @@ class StorageManager {
             }).then(result => {
                 returnObject.tagsRowsDeleted = result.rowCount;
             });
+        }).then(() => {
+            return returnObject;
+        }).catch(error => {
+            return error;
+        });
+    }
+
+    deleteTagForId(tagId) {
+        var returnObject = {
+            taggedLinksRowsDeleted: 0,
+            taggedMessagesRowsDeleted: 0,
+            tagsRowsDeleted: 0
+        };
+        // Delete all tagged-links
+        return this.db.result('DELETE FROM "tagged_links" WHERE "tag_id" = $1', tagId).then(result => {
+            returnObject.taggedLinksRowsDeleted = result.rowCount;
+            
+            // Delete all tagged-messages 
+            return this.db.result('DELETE FROM "tagged_messages" WHERE "tag_id" = $1', tagId).then(result => {
+            returnObject.taggedMessagesRowsDeleted = result.rowCount;
+            
+            // Delete tag row
+            return this.db.result('DELETE FROM "tags" WHERE "id" = $1', tagId);
+        }).then(result => {
+            returnObject.tagsRowsDeleted = result.rowCount;
+        });
         }).then(() => {
             return returnObject;
         }).catch(error => {
